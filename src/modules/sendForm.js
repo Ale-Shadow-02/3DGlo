@@ -7,11 +7,12 @@ const sendForm = () => {
     let typeInput = input.getAttribute('type'),
       regExp = new RegExp();
 
-    if (typeInput === 'text') {
+    if (typeInput === 'text' || input.classList.contains('mess')) {
       regExp = /^[А-Яёа-яё\s]+$/;
     } else if (typeInput === 'tel') {
       regExp = /^\+$|\d+$/;
     }
+
     if (!regExp.test(input.value)) {
       input.value = input.value.slice(0, -1);
     }
@@ -56,7 +57,6 @@ const sendForm = () => {
     });
   });
 
-
   const postData = (body) => {
     return fetch('./server.php', {
       method: 'POST',
@@ -65,26 +65,6 @@ const sendForm = () => {
       },
       body: JSON.stringify(body)
     });
-
-
-    //   return new Promise((resolve, reject) => {
-    //     const request = new XMLHttpRequest();
-    //     request.addEventListener('readystatechange', () => {
-    //       if (request.readyState !== 4) {
-    //         return;
-    //       }
-    //       if (request.status === 200) {
-    //         resolve();
-    //       } else {
-    //         reject(request.status);
-    //       }
-    //     });
-
-    //     request.open('POST', './server.php');
-    //     request.setRequestHeader('Content-Type', 'application/json');
-    //     request.send(JSON.stringify(body));
-    //   });
-    // };
 
   };
 
